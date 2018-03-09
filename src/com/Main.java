@@ -69,12 +69,13 @@ public class Main {
 
 
         while (true) {
-            System.out.print("Input hex instruction: ");
+            System.out.print("Input hex instruction (invalid input exits): ");
+            hexInstr = input.nextLine();
+            hexInstr = hexInstr.replaceAll("\\s", "");
 
             try {
-                instruction = input.nextLong(16);
-                hexInstr = Long.toHexString(instruction);
-            } catch (InputMismatchException e) {
+                instruction = Long.parseLong(hexInstr, 16);
+            } catch (NumberFormatException e) {
                 System.err.println("Bad input, exiting...");
                 System.exit(1);
             }
@@ -98,6 +99,12 @@ public class Main {
                     break;
                 case (byte) 0x81:
                     movInstrHandling.mov81(operand0, operand1);
+                    break;
+                case (byte) 0x82:
+                    movInstrHandling.mov82(operand0, operand1, operand2);
+                    break;
+                case (byte) 0x83:
+                    movInstrHandling.mov83(operand0, operand1, operand2);
                     break;
             }
 

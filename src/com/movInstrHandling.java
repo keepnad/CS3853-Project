@@ -135,11 +135,11 @@ public final class movInstrHandling {
 
     }
 
-    public static void mov82() {
+    public static void mov82(byte operand0, byte operand1, byte operand2) {
 
     }
 
-    public static void mov83() {
+    public static void mov83(byte operand0, byte operand1, byte operand2) {
 
     }
 }
