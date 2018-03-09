@@ -13,6 +13,8 @@ public class Main {
     static byte instrLineHigh, instrLineLow;
     static byte[][] RAM;
     static byte[] EPROM, I_O;
+    static boolean CLK;
+    static Thread clockThread;
 
     public static void main(String[] args) {
 
@@ -24,6 +26,13 @@ public class Main {
         byte opcode = 0;
         byte operand0 = 0;
         byte operand1 = 0;
+        byte operand2 = 0;
+
+        CLK = false;
+
+        clockThread = new Thread(new clockTimer());
+        clockThread.start();
+
         RAM = new byte[14][4096];
         EPROM = new byte[4096];
         I_O = new byte[4096];
@@ -78,119 +87,20 @@ public class Main {
                 opcode = (byte) ((instruction >> 16) & 0xFF);
                 operand0 = (byte) ((instruction >> 8) & 0xFF);
                 operand1 = (byte) (instruction & 0xFF);
+            }else if (hexInstr.length() == 8){
+                opcode = (byte) ((instruction >> 24) & 0xFF);
+                operand0 = (byte) ((instruction >> 16) & 0xFF);
+                operand1 = (byte) ((instruction >> 8) & 0xFF);
+                operand2 = (byte) (instruction & 0xFF);
             }
 
-            if (opcode == (byte) 0x80) {
-                binStrOperand0 = new StringBuilder(Integer.toBinaryString(operand0));
-
-                while (binStrOperand0.length() < 8) {
-                    binStrOperand0.insert(0, '0');
-                }
-
-                while (binStrOperand0.length() > 8) {
-                    binStrOperand0.deleteCharAt(0);
-                }
-
-                switch (binStrOperand0.substring(0, 2)) {
-                    case "00":
-                        DST = R0;
-                        dstRegNum = 0;
-                        break;
-                    case "01":
-                        DST = R1;
-                        dstRegNum = 1;
-                        break;
-                    case "10":
-                        DST = R2;
-                        dstRegNum = 2;
-                        break;
-                    case "11":
-                        DST = R3;
-                        dstRegNum = 3;
-                        break;
-                    default:
-                        System.err.println("Invalid value in operand: " + binStrOperand0.substring(0, 2));
-                        continue;
-                }
-
-                switch (binStrOperand0.substring(4, 6)) {
-                    case "00":
-                        SRC = R0;
-                        srcRegNum = 0;
-                        break;
-                    case "01":
-                        SRC = R1;
-                        srcRegNum = 1;
-                        break;
-                    case "10":
-                        SRC = R2;
-                        srcRegNum = 2;
-                        break;
-                    case "11":
-                        SRC = R3;
-                        srcRegNum = 3;
-                        break;
-                    default:
-                        System.err.println("Invalid value in operand: " + binStrOperand0.substring(4, 6));
-                        continue;
-                }
-
-                SRC.setValue(SRC.getValue());
-                //System.err.println("value using SRC pointer: " + SRC.getValue());
-                regOutMuxA.selectInput(srcRegNum);
-                //System.err.println("value from regOutMuxA: " + regOutMuxA.output);
-                //System.err.println("value from dataOutA: " + dataOutA);
-                regInMuxA.selectInput(0);
-                //System.err.println("value from regInMuxA: " + regInMuxA.output);
-                regDeMux.selectInput('A');
-                //System.err.println("destination reg number: " + dstRegNum);
-                regDeMux.selectReg(dstRegNum);
-
-
-                //DST.setValue(SRC.getValue());
-
-            }
-
-            if (opcode == (byte) 0x81) {
-
-                binStrOperand0 = new StringBuilder(Integer.toBinaryString(operand0));
-
-                while (binStrOperand0.length() < 8) {
-                    binStrOperand0.insert(0, '0');
-                }
-                while (binStrOperand0.length() > 8) {
-                    binStrOperand0.deleteCharAt(0);
-                }
-
-                switch (binStrOperand0.substring(0, 2)) {
-                    case "00":
-                        DST = R0;
-                        dstRegNum = 0;
-                        break;
-                    case "01":
-                        DST = R1;
-                        dstRegNum = 1;
-                        break;
-                    case "10":
-                        DST = R2;
-                        dstRegNum = 2;
-                        break;
-                    case "11":
-                        DST = R3;
-                        dstRegNum = 3;
-                        break;
-                    default:
-                        System.err.println("Invalid value in operand: " + binStrOperand0.substring(0, 2));
-                        continue;
-                }
-
-                instrLineLow = operand1;
-                regInMuxA.selectInput(2);
-                regDeMux.selectInput('A');
-                regDeMux.selectReg(dstRegNum);
-
-
-                //  DST.setValue(operand1);
+            switch(opcode){
+                case (byte) 0x80:
+                    movInstrHandling.mov80(operand0);
+                    break;
+                case (byte) 0x81:
+                    movInstrHandling.mov81(operand0, operand1);
+                    break;
             }
 
             System.out.printf("Register 0: 0x%02X\n", R0.getValue());
