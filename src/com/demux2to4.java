@@ -32,16 +32,16 @@ public class demux2to4 {
     void selectReg(int regNum) {
         switch (regNum) {
             case 0:
-                Main.R0.setValue(valueToReg);
+                Main.R0.setInput(valueToReg);
                 break;
             case 1:
-                Main.R1.setValue(valueToReg);
+                Main.R1.setInput(valueToReg);
                 break;
             case 2:
-                Main.R2.setValue(valueToReg);
+                Main.R2.setInput(valueToReg);
                 break;
             case 3:
-                Main.R3.setValue(valueToReg);
+                Main.R3.setInput(valueToReg);
                 break;
             default:
                 System.err.println("Something went wrong in com.demux2to4.java");

@@ -7,4 +7,8 @@ public class flagsRegister extends register {
         super(bits, U_number);
 
     }
+
+    void setInput(byte val){
+
+    }
 }

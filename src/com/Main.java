@@ -20,8 +20,6 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         String hexInstr = "";
-        StringBuilder binStrOperand0, binStrOperand1, binStrOpcode;
-        int srcRegNum, dstRegNum;
         long instruction = 0;
         byte opcode = 0;
         byte operand0 = 0;
@@ -103,10 +101,10 @@ public class Main {
                     break;
             }
 
-            System.out.printf("Register 0: 0x%02X\n", R0.getValue());
-            System.out.printf("Register 1: 0x%02X\n", R1.getValue());
-            System.out.printf("Register 2: 0x%02X\n", R2.getValue());
-            System.out.printf("Register 3: 0x%02X\n", R3.getValue());
+            System.out.printf("Register 0: 0x%02X\n", R0.getOutput());
+            System.out.printf("Register 1: 0x%02X\n", R1.getOutput());
+            System.out.printf("Register 2: 0x%02X\n", R2.getOutput());
+            System.out.printf("Register 3: 0x%02X\n", R3.getOutput());
         }
     }
 }

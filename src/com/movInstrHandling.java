@@ -59,8 +59,8 @@ public final class movInstrHandling {
                 System.err.println("Invalid value in operand: " + binStrOperand0.substring(4, 6));
         }
 
-        Main.SRC.setValue(Main.SRC.getValue());
-        //System.err.println("value using SRC pointer: " + SRC.getValue());
+        //Main.SRC.setInput(Main.SRC.getOutput());
+        //System.err.println("value using SRC pointer: " + SRC.getOutput());
         Main.regOutMuxA.selectInput(srcRegNum);
         //System.err.println("value from regOutMuxA: " + regOutMuxA.output);
         //System.err.println("value from dataOutA: " + dataOutA);
@@ -68,19 +68,19 @@ public final class movInstrHandling {
         //System.err.println("value from regInMuxA: " + regInMuxA.output);
         Main.regDeMux.selectInput('A');
         //System.err.println("destination reg number: " + dstRegNum);
+        Main.regDeMux.selectReg(dstRegNum);
         try {
             while (Main.CLK) {
-                Thread.sleep(25);
+                Thread.sleep(2);
             }
             while (!Main.CLK) {
-                Thread.sleep(25);
+                Thread.sleep(2);
             }
         } catch (InterruptedException e) {
         }
-        Main.regDeMux.selectReg(dstRegNum);
 
 
-        //DST.setValue(SRC.getValue());
+        //DST.setValue(SRC.getOutput());
 
     }
 
@@ -119,6 +119,7 @@ public final class movInstrHandling {
         Main.instrLineLow = operand1;
         Main.regInMuxA.selectInput(2);
         Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(dstRegNum);
         try {
             while (Main.CLK) {
                 Thread.sleep(25);
@@ -128,7 +129,6 @@ public final class movInstrHandling {
             }
         } catch (InterruptedException e) {
         }
-        Main.regDeMux.selectReg(dstRegNum);
 
 
         //  DST.setValue(operand1);
