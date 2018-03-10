@@ -1,6 +1,6 @@
 package com;
 
-public final class mathInstrHandling {
+public final class MathInstrHandling {
 
     public static void addc10(){
 

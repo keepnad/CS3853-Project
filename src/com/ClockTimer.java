@@ -1,6 +1,6 @@
 package com;
 
-public class clockTimer implements Runnable {
+public class ClockTimer implements Runnable {
 
     public void run() {
 

@@ -1,6 +1,6 @@
 package com;
 
-public final class logicInstrHandling {
+public final class LogicInstrHandling {
 
     public static void not40(){
 

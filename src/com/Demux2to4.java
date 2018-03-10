@@ -1,13 +1,13 @@
 package com;
 
-public class demux2to4 {
+public class Demux2to4 {
 
     byte[] inputs;
     byte[] outputs;
     int ID;
     byte valueToReg;
 
-    demux2to4(int U_number) {
+    Demux2to4(int U_number) {
         inputs = new byte[2];
         outputs = new byte[4];
         this.ID = U_number;
@@ -24,7 +24,7 @@ public class demux2to4 {
                 valueToReg = inputs[1];
                 break;
             default:
-                System.err.println("Something went wrong in com.demux2to4.java");
+                System.err.println("Something went wrong in com.Demux2to4.java");
                 System.exit(1);
         }
     }
@@ -44,7 +44,7 @@ public class demux2to4 {
                 Main.R3.setInput(valueToReg);
                 break;
             default:
-                System.err.println("Something went wrong in com.demux2to4.java");
+                System.err.println("Something went wrong in com.Demux2to4.java");
                 System.exit(1);
         }
     }

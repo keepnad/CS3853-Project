@@ -1,6 +1,6 @@
 package com;
 
-public final class jumpInstrHandling {
+public final class JumpInstrHandling {
     public static void jmpB8(){
 
     }

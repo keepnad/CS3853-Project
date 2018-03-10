@@ -1,6 +1,6 @@
 package com;
 
-public abstract class mux {
+public abstract class Mux {
 
     int numInputs;
     int ID;
@@ -8,13 +8,13 @@ public abstract class mux {
     byte output;
     char aOrB = '\0';
 
-    mux(int n, int U_number) {
+    Mux(int n, int U_number) {
         this.numInputs = n;
         this.ID = U_number;
         inputs = new byte[numInputs];
     }
 
-    mux(int n, int U_number, char aOrB) {
+    Mux(int n, int U_number, char aOrB) {
         this.numInputs = n;
         this.ID = U_number;
         inputs = new byte[numInputs];

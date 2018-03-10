@@ -1,12 +1,12 @@
 package com;
 
-public class mux8to1 extends mux {
+public class Mux8To1 extends Mux {
 
-    mux8to1(int n, int U_number) {
+    Mux8To1(int n, int U_number) {
         super(n, U_number);
     }
 
-    mux8to1(int n, int U_number, char aOrB) {
+    Mux8To1(int n, int U_number, char aOrB) {
         super(n, U_number, aOrB);
     }
 
@@ -43,12 +43,12 @@ public class mux8to1 extends mux {
                         break;
                     default:
                         System.out.println(this.getClass().getSimpleName());
-                        System.err.println("Something went wrong in com.mux8to1.java a or b switch...");
+                        System.err.println("Something went wrong in com.Mux8To1.java a or b switch...");
                         System.exit(1);
                 }
                 break;
             default:
-                System.err.println("Something went wrong in com.mux8to1.java... ID switch");
+                System.err.println("Something went wrong in com.Mux8To1.java... ID switch");
                 System.exit(1);
         }
     }

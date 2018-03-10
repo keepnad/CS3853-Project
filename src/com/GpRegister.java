@@ -1,8 +1,10 @@
 package com;
 
-public class gpRegister extends register {
+public class GpRegister extends Register {
 
-    gpRegister(int bits, int U_number) {
+    byte input, output;
+
+    GpRegister(int bits, int U_number) {
 
         super(bits, U_number);
 
@@ -25,10 +27,18 @@ public class gpRegister extends register {
                 Main.regOutMuxA.inputs[3] = Main.regOutMuxB.inputs[3] = val;
                 break;
             default:
-                System.err.println("Something went wrong in com.gpRegister.java...");
+                System.err.println("Something went wrong in com.GpRegister.java...");
                 System.exit(1);
 
         }
 
+    }
+
+    byte getOutput() {
+        return this.output;
+    }
+
+    void clockIn(){
+        this.output = this.input;
     }
 }

@@ -1,8 +1,8 @@
 package com;
 
-public class mux4to1 extends mux {
+public class Mux2To1 extends Mux {
 
-    mux4to1(int n, int U_number) {
+    Mux2To1(int n, int U_number) {
         super(n, U_number);
     }
 

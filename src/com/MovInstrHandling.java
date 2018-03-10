@@ -1,6 +1,6 @@
 package com;
 
-public final class movInstrHandling {
+public final class MovInstrHandling {
 
     static StringBuilder binStrOperand0, binStrOperand1, binStrOpcode;
     static int srcRegNum, dstRegNum;
@@ -142,4 +142,5 @@ public final class movInstrHandling {
     public static void mov83(byte operand0, byte operand1, byte operand2) {
 
     }
+
 }
