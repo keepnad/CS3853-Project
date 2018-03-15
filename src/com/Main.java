@@ -5,11 +5,12 @@ import java.util.Scanner;
 public class Main {
 
     static Register R0, R1, R2, R3, SP, IP, FLAGS, SRC, DST;
+    static LogicGate AND, OR, XOR, NOT;
     static Mux ipMux, addyMux, regInMuxA, regOutMuxA, regInMuxB, regOutMuxB;
     static Mux aluMux, flagsMux, spMux, dataBusMux;
     static Demux2to4 regDeMux;
     static byte dataOutA, dataOutB;
-    static byte instrLineHigh, instrLineLow;
+    static byte instrLineHigh, instrLineLow, memRead;
     static byte[][] RAM;
     static byte[] EPROM, I_O;
     static boolean CLK;

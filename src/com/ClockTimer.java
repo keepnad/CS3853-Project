@@ -28,4 +28,16 @@ public class ClockTimer implements Runnable {
 
         }
     }
+
+    public static void waitForTick(){
+        try {
+            while (Main.CLK) {
+                Thread.sleep(2);
+            }
+            while (!Main.CLK) {
+                Thread.sleep(2);
+            }
+        } catch (InterruptedException e) {
+        }
+    }
 }

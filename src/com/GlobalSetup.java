@@ -19,6 +19,10 @@ public final class GlobalSetup {
         Main.instrLineHigh = (byte) 0x0;
         Main.instrLineLow = (byte) 0x0;
 
+        Main.AND = new LogicGate("AND", 101);
+        Main.OR = new LogicGate("OR", 102);
+        Main.XOR = new LogicGate("XOR", 103);
+        Main.NOT = new LogicGate("NOT", 104);
 
         Main.R0 = new GpRegister(8, 10);
         Main.R1 = new GpRegister(8, 11);

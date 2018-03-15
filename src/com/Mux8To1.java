@@ -11,27 +11,38 @@ public class Mux8To1 extends Mux {
     }
 
     void selectInput(int n) {
+        if(this.ID == 112 || this.ID == 113){
+            this.inputs[4] = Main.memRead;
+            this.inputs[6] = Main.instrLineLow;
+        }
+
         switch (aOrB) {
             case 0:
                 break;
             case 'A':
                 this.inputs[0] = Main.dataOutA;
                 this.inputs[2] = Main.instrLineLow;
+                this.inputs[3] = Main.aluMux.output;
+                this.inputs[5] = Main.memRead;
                 break;
             case 'B':
                 this.inputs[0] = Main.dataOutB;
                 this.inputs[2] = Main.instrLineHigh;
+                this.inputs[3] = Main.aluMux.output;
+                this.inputs[5] = Main.memRead;
                 break;
         }
 
         this.output = this.inputs[n];
 
         switch (this.ID) {
+            case 111:
+                break;
             case 112:
-                Main.dataOutA = output;
+                Main.dataOutA = this.output;
                 break;
             case 113:
-                Main.dataOutB = output;
+                Main.dataOutB = this.output;
                 break;
             case 118:
                 switch (this.aOrB) {

@@ -7,57 +7,9 @@ public final class MovInstrHandling {
 
     public static void mov80(byte operand0) {
 
-        binStrOperand0 = new StringBuilder(Integer.toBinaryString(operand0));
+        dstRegNum = InstrParser.selectReg(operand0, 1);
 
-        while (binStrOperand0.length() < 8) {
-            binStrOperand0.insert(0, '0');
-        }
-
-        while (binStrOperand0.length() > 8) {
-            binStrOperand0.deleteCharAt(0);
-        }
-
-        switch (binStrOperand0.substring(0, 2)) {
-            case "00":
-                Main.DST = Main.R0;
-                dstRegNum = 0;
-                break;
-            case "01":
-                Main.DST = Main.R1;
-                dstRegNum = 1;
-                break;
-            case "10":
-                Main.DST = Main.R2;
-                dstRegNum = 2;
-                break;
-            case "11":
-                Main.DST = Main.R3;
-                dstRegNum = 3;
-                break;
-            default:
-                System.err.println("Invalid value in operand: " + binStrOperand0.substring(0, 2));
-        }
-
-        switch (binStrOperand0.substring(4, 6)) {
-            case "00":
-                Main.SRC = Main.R0;
-                srcRegNum = 0;
-                break;
-            case "01":
-                Main.SRC = Main.R1;
-                srcRegNum = 1;
-                break;
-            case "10":
-                Main.SRC = Main.R2;
-                srcRegNum = 2;
-                break;
-            case "11":
-                Main.SRC = Main.R3;
-                srcRegNum = 3;
-                break;
-            default:
-                System.err.println("Invalid value in operand: " + binStrOperand0.substring(4, 6));
-        }
+        srcRegNum = InstrParser.selectReg(operand0, 2);
 
         //Main.SRC.setInput(Main.SRC.getOutput());
         //System.err.println("value using SRC pointer: " + SRC.getOutput());
@@ -69,15 +21,7 @@ public final class MovInstrHandling {
         Main.regDeMux.selectInput('A');
         //System.err.println("destination reg number: " + dstRegNum);
         Main.regDeMux.selectReg(dstRegNum);
-        try {
-            while (Main.CLK) {
-                Thread.sleep(2);
-            }
-            while (!Main.CLK) {
-                Thread.sleep(2);
-            }
-        } catch (InterruptedException e) {
-        }
+        ClockTimer.waitForTick();
 
 
         //DST.setValue(SRC.getOutput());
@@ -86,49 +30,14 @@ public final class MovInstrHandling {
 
 
     public static void mov81(byte operand0, byte operand1) {
-        binStrOperand0 = new StringBuilder(Integer.toBinaryString(operand0));
 
-        while (binStrOperand0.length() < 8) {
-            binStrOperand0.insert(0, '0');
-        }
-        while (binStrOperand0.length() > 8) {
-            binStrOperand0.deleteCharAt(0);
-        }
-
-        switch (binStrOperand0.substring(0, 2)) {
-            case "00":
-                Main.DST = Main.R0;
-                dstRegNum = 0;
-                break;
-            case "01":
-                Main.DST = Main.R1;
-                dstRegNum = 1;
-                break;
-            case "10":
-                Main.DST = Main.R2;
-                dstRegNum = 2;
-                break;
-            case "11":
-                Main.DST = Main.R3;
-                dstRegNum = 3;
-                break;
-            default:
-                System.err.println("Invalid value in operand: " + binStrOperand0.substring(0, 2));
-        }
+        dstRegNum = InstrParser.selectReg(operand0,1);
 
         Main.instrLineLow = operand1;
         Main.regInMuxA.selectInput(2);
         Main.regDeMux.selectInput('A');
         Main.regDeMux.selectReg(dstRegNum);
-        try {
-            while (Main.CLK) {
-                Thread.sleep(25);
-            }
-            while (!Main.CLK) {
-                Thread.sleep(25);
-            }
-        } catch (InterruptedException e) {
-        }
+        ClockTimer.waitForTick();
 
 
         //  DST.setValue(operand1);
@@ -136,11 +45,28 @@ public final class MovInstrHandling {
     }
 
     public static void mov82(byte operand0, byte operand1, byte operand2) {
+        dstRegNum = InstrParser.selectReg(operand0, 1);
+
+        MemoryHandling.readFromMem(operand1, operand2);
+        Main.regInMuxA.selectInput(5);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(dstRegNum);
+        ClockTimer.waitForTick();
 
     }
 
     public static void mov83(byte operand0, byte operand1, byte operand2) {
+        srcRegNum = InstrParser.selectReg(operand2, 1);
+
+        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.dataBusMux.selectInput(0);
+        MemoryHandling.writeToMem(operand0, operand1, Main.dataBusMux.output);
+        ClockTimer.waitForTick();
 
     }
 
+    public static void nopE0() {
+        ClockTimer.waitForTick();
+
+    }
 }
