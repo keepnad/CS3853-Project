@@ -53,7 +53,24 @@ public final class LogicInstrHandling {
 
     }
 
-    public static void and51() {
+    public static void and51(byte operand0, byte operand1) {
+        dstRegNum = InstrParser.selectReg(operand0, 1);
+
+        Main.instrLineLow = operand1;
+
+        Main.regOutMuxA.selectInput(dstRegNum);
+        Main.regOutMuxB.selectInput(6);
+
+        Main.AND.inputA = Main.regOutMuxA.output;
+        Main.AND.inputB = Main.regOutMuxB.output;
+
+        Main.AND.operate();
+        Main.aluMux.selectInput(1);
+        Main.regInMuxA.selectInput(3);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(dstRegNum);
+        ClockTimer.waitForTick();
+
 
     }
 
@@ -65,11 +82,42 @@ public final class LogicInstrHandling {
 
     }
 
-    public static void or60() {
+    public static void or60(byte operand0) {
+        dstRegNum = InstrParser.selectReg(operand0, 1);
+        srcRegNum = InstrParser.selectReg(operand0, 2);
+
+        Main.regOutMuxA.selectInput(dstRegNum);
+        Main.regOutMuxB.selectInput(srcRegNum);
+
+        Main.OR.inputA = Main.regOutMuxA.output;
+        Main.OR.inputB = Main.regOutMuxB.output;
+
+        Main.OR.operate();
+        Main.aluMux.selectInput(2);
+        Main.regInMuxA.selectInput(3);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(dstRegNum);
+        ClockTimer.waitForTick();
 
     }
 
-    public static void or61() {
+    public static void or61(byte operand0, byte operand1) {
+        dstRegNum = InstrParser.selectReg(operand0, 1);
+
+        Main.instrLineLow = operand1;
+
+        Main.regOutMuxA.selectInput(dstRegNum);
+        Main.regOutMuxB.selectInput(6);
+
+        Main.OR.inputA = Main.regOutMuxA.output;
+        Main.OR.inputB = Main.regOutMuxB.output;
+
+        Main.OR.operate();
+        Main.aluMux.selectInput(2);
+        Main.regInMuxA.selectInput(3);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(dstRegNum);
+        ClockTimer.waitForTick();
 
     }
 
@@ -81,11 +129,42 @@ public final class LogicInstrHandling {
 
     }
 
-    public static void xor70() {
+    public static void xor70(byte operand0) {
+        dstRegNum = InstrParser.selectReg(operand0, 1);
+        srcRegNum = InstrParser.selectReg(operand0, 2);
+
+        Main.regOutMuxA.selectInput(dstRegNum);
+        Main.regOutMuxB.selectInput(srcRegNum);
+
+        Main.XOR.inputA = Main.regOutMuxA.output;
+        Main.XOR.inputB = Main.regOutMuxB.output;
+
+        Main.XOR.operate();
+        Main.aluMux.selectInput(3);
+        Main.regInMuxA.selectInput(3);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(dstRegNum);
+        ClockTimer.waitForTick();
 
     }
 
-    public static void xor71() {
+    public static void xor71(byte operand0, byte operand1) {
+        dstRegNum = InstrParser.selectReg(operand0, 1);
+
+        Main.instrLineLow = operand1;
+
+        Main.regOutMuxA.selectInput(dstRegNum);
+        Main.regOutMuxB.selectInput(6);
+
+        Main.XOR.inputA = Main.regOutMuxA.output;
+        Main.XOR.inputB = Main.regOutMuxB.output;
+
+        Main.XOR.operate();
+        Main.aluMux.selectInput(3);
+        Main.regInMuxA.selectInput(3);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(dstRegNum);
+        ClockTimer.waitForTick();
 
     }
 

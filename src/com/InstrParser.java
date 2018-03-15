@@ -43,6 +43,21 @@ public final class InstrParser {
             case (byte) 0x50:
                 LogicInstrHandling.and50(operand0);
                 break;
+            case (byte) 0x51:
+                LogicInstrHandling.and51(operand0, operand1);
+                break;
+            case (byte) 0x60:
+                LogicInstrHandling.or60(operand0);
+                break;
+            case (byte) 0x61:
+                LogicInstrHandling.or61(operand0, operand1);
+                break;
+            case (byte) 0x70:
+                LogicInstrHandling.xor70(operand0);
+                break;
+            case (byte) 0x71:
+                LogicInstrHandling.xor71(operand0, operand1);
+                break;
             case (byte) 0x80:
                 MovInstrHandling.mov80(operand0);
                 break;
