@@ -8,8 +8,14 @@ import com.registers.FlagsRegister;
 import com.registers.GpRegister;
 import com.registers.PointerRegister;
 
+/**
+ * GlobalSetup class:
+ * Non-instanced
+ */
 public final class GlobalSetup {
-
+    /**
+     * Performs setup of all the global objects and variables
+     */
     public static void initializeAll() {
 
 

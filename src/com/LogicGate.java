@@ -1,5 +1,9 @@
 package com;
 
+/**
+ * LogicGate class:
+ * Objects for logic gates
+ */
 public class LogicGate {
 
     public byte inputA, inputB;
@@ -11,6 +15,10 @@ public class LogicGate {
         this.type = type;
     }
 
+    /**
+     * When operate is called, depending on which type of gate
+     * it was created as, it will perform the correct operation
+     */
     public void operate() {
         switch (this.type) {
             case "AND":

@@ -1,7 +1,14 @@
 package com;
 
+/**
+ * ClockTimer class:
+ * Runs the clock for the chips
+ * Only ties to registers at the moment
+ */
 public class ClockTimer implements Runnable {
-
+    /**
+     * When the clock goes high, it calls the clockIn method for each register
+     */
     public void run() {
 
         //long timer = 0;
@@ -29,6 +36,10 @@ public class ClockTimer implements Runnable {
         }
     }
 
+    /**
+     * This method makes the unclocked portions of the program wait for a clock-in
+     * Used when waiting for a register to save a value
+     */
     public static void waitForTick(){
         try {
             while (Main.CLK) {

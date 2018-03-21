@@ -7,6 +7,10 @@ import com.registers.Register;
 
 import java.util.Scanner;
 
+/**
+ * Main class:
+ * *Defines all global objects
+ */
 public class Main {
 
     public static Register R0, R1, R2, R3, SP, IP, FLAGS, SRC, DST;
@@ -21,6 +25,14 @@ public class Main {
     public static boolean CLK;
     public static Thread clockThread;
 
+    /**
+     * main method: calls initializeAll to set up all the globals
+     * takes input as hex string from console, with or without spaces
+     * Exit program or call memDump
+     * calls InstrParser.parse on the hex string,
+     * then runs the instruction, if parsing succeeded
+     * print contents of all registers
+     */
     public static void main(String[] args) {
 
         GlobalSetup.initializeAll();
@@ -29,12 +41,17 @@ public class Main {
         String hexInstr;
         boolean parseSuccess;
 
+        System.out.println("\nInput q to quit, input memdump to write RAM to file\n");
         while (true) {
-            System.out.print("Input hex instruction (or q to quit): ");
+            System.out.print("Input hex instruction: ");
             hexInstr = input.nextLine();
-            if (hexInstr.length() > 0 && (hexInstr.charAt(0) == 'q' || hexInstr.charAt(0) == 'Q')) {
+            if (hexInstr.length() > 0 && (hexInstr.equals("q") || hexInstr.equals("Q"))) {
                 System.out.println("\nQuit.");
                 System.exit(0);
+            } else if (hexInstr.toLowerCase().equals("memdump")) {
+                MemoryHandling.memDump();
+                System.out.println("\nMemory dumped to ramDump.txt\n");
+                continue;
             }
             hexInstr = hexInstr.replaceAll("\\s", "");
 
