@@ -1,4 +1,4 @@
-package com;
+package com.instrHandling;
 
 public final class InstrParser {
     static long instruction = 0;

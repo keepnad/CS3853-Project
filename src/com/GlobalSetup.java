@@ -1,5 +1,13 @@
 package com;
 
+import com.muxes.Demux2to4;
+import com.muxes.Mux2To1;
+import com.muxes.Mux4To1;
+import com.muxes.Mux8To1;
+import com.registers.FlagsRegister;
+import com.registers.GpRegister;
+import com.registers.PointerRegister;
+
 public final class GlobalSetup {
 
     public static void initializeAll() {

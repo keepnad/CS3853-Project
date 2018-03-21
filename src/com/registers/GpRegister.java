@@ -1,16 +1,18 @@
-package com;
+package com.registers;
+
+import com.Main;
 
 public class GpRegister extends Register {
 
     byte input, output;
 
-    GpRegister(int bits, int U_number) {
+    public GpRegister(int bits, int U_number) {
 
         super(bits, U_number);
 
     }
 
-    void setInput(byte val){
+    public void setInput(byte val){
         this.input = val;
 
         switch (this.ID) {
@@ -27,18 +29,18 @@ public class GpRegister extends Register {
                 Main.regOutMuxA.inputs[3] = Main.regOutMuxB.inputs[3] = val;
                 break;
             default:
-                System.err.println("Something went wrong in com.GpRegister.java...");
+                System.err.println("Something went wrong in com.registers.GpRegister.java...");
                 System.exit(1);
 
         }
 
     }
 
-    byte getOutput() {
+    public byte getOutput() {
         return this.output;
     }
 
-    void clockIn(){
+    public void clockIn(){
         this.output = this.input;
     }
 }

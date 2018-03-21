@@ -1,4 +1,6 @@
-package com;
+package com.muxes;
+
+import com.Main;
 
 public class Demux2to4 {
 
@@ -7,13 +9,13 @@ public class Demux2to4 {
     int ID;
     byte valueToReg;
 
-    Demux2to4(int U_number) {
+    public Demux2to4(int U_number) {
         inputs = new byte[2];
         outputs = new byte[4];
         this.ID = U_number;
     }
 
-    void selectInput(char OE) {
+    public void selectInput(char OE) {
         switch (OE) {
             case 'a':
             case 'A':
@@ -24,12 +26,12 @@ public class Demux2to4 {
                 valueToReg = inputs[1];
                 break;
             default:
-                System.err.println("Something went wrong in com.Demux2to4.java");
+                System.err.println("Something went wrong in com.muxes.Demux2to4.java");
                 System.exit(1);
         }
     }
 
-    void selectReg(int regNum) {
+    public void selectReg(int regNum) {
         switch (regNum) {
             case 0:
                 Main.R0.setInput(valueToReg);
@@ -44,7 +46,7 @@ public class Demux2to4 {
                 Main.R3.setInput(valueToReg);
                 break;
             default:
-                System.err.println("Something went wrong in com.Demux2to4.java");
+                System.err.println("Something went wrong in com.muxes.Demux2to4.java");
                 System.exit(1);
         }
     }

@@ -1,17 +1,17 @@
-package com;
+package com.registers;
 
 public class PointerRegister extends Register {
 
     byte inputHigh, inputLow;
     byte outputHigh, outputLow;
 
-    PointerRegister(int bits, int U_number) {
+    public PointerRegister(int bits, int U_number) {
 
         super(bits, U_number);
 
     }
 
-    void setInput(byte val){
+    public void setInput(byte val){
 
     }
 
@@ -27,12 +27,12 @@ public class PointerRegister extends Register {
 
                 break;
             default:
-                System.err.println("Something went wrong in com.PointerRegister.java...");
+                System.err.println("Something went wrong in com.registers.PointerRegister.java...");
                 System.exit(1);
         }
     }
 
-    byte getOutput() {
+    public byte getOutput() {
         return (byte) 0x0;
     }
 
@@ -44,7 +44,7 @@ public class PointerRegister extends Register {
         return outputLow;
     }
 
-    void clockIn() {
+    public void clockIn() {
         this.outputHigh = this.inputHigh;
         this.outputLow = this.inputLow;
     }

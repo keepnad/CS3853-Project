@@ -1,16 +1,18 @@
-package com;
+package com.muxes;
+
+import com.Main;
 
 public class Mux8To1 extends Mux {
 
-    Mux8To1(int n, int U_number) {
+    public Mux8To1(int n, int U_number) {
         super(n, U_number);
     }
 
-    Mux8To1(int n, int U_number, char aOrB) {
+    public Mux8To1(int n, int U_number, char aOrB) {
         super(n, U_number, aOrB);
     }
 
-    void selectInput(int n) {
+    public void selectInput(int n) {
         if(this.ID == 112 || this.ID == 113){
             this.inputs[4] = Main.memRead;
             this.inputs[6] = Main.instrLineLow;
@@ -54,12 +56,12 @@ public class Mux8To1 extends Mux {
                         break;
                     default:
                         System.out.println(this.getClass().getSimpleName());
-                        System.err.println("Something went wrong in com.Mux8To1.java a or b switch...");
+                        System.err.println("Something went wrong in com.muxes.Mux8To1.java a or b switch...");
                         System.exit(1);
                 }
                 break;
             default:
-                System.err.println("Something went wrong in com.Mux8To1.java... ID switch");
+                System.err.println("Something went wrong in com.muxes.Mux8To1.java... ID switch");
                 System.exit(1);
         }
     }

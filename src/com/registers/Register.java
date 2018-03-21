@@ -1,4 +1,4 @@
-package com;
+package com.registers;
 
 public abstract class Register {
 
@@ -10,9 +10,9 @@ public abstract class Register {
         this.ID = U_number;
     }
 
-    abstract byte getOutput();
+    public abstract byte getOutput();
 
-    abstract void clockIn();
+    public abstract void clockIn();
 
-    abstract void setInput(byte val);
+    public abstract void setInput(byte val);
 }

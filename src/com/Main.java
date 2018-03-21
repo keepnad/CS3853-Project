@@ -1,20 +1,25 @@
 package com;
 
+import com.instrHandling.InstrParser;
+import com.muxes.Demux2to4;
+import com.muxes.Mux;
+import com.registers.Register;
+
 import java.util.Scanner;
 
 public class Main {
 
-    static Register R0, R1, R2, R3, SP, IP, FLAGS, SRC, DST;
-    static LogicGate AND, OR, XOR, NOT;
-    static Mux ipMux, addyMux, regInMuxA, regOutMuxA, regInMuxB, regOutMuxB;
-    static Mux aluMux, flagsMux, spMux, dataBusMux;
-    static Demux2to4 regDeMux;
-    static byte dataOutA, dataOutB;
-    static byte instrLineHigh, instrLineLow, memRead;
-    static byte[][] RAM;
-    static byte[] EPROM, I_O;
-    static boolean CLK;
-    static Thread clockThread;
+    public static Register R0, R1, R2, R3, SP, IP, FLAGS, SRC, DST;
+    public static LogicGate AND, OR, XOR, NOT;
+    public static Mux ipMux, addyMux, regInMuxA, regOutMuxA, regInMuxB, regOutMuxB;
+    public static Mux aluMux, flagsMux, spMux, dataBusMux;
+    public static Demux2to4 regDeMux;
+    public static byte dataOutA, dataOutB;
+    public static byte instrLineHigh, instrLineLow, memRead;
+    public static byte[][] RAM;
+    public static byte[] EPROM, I_O;
+    public static boolean CLK;
+    public static Thread clockThread;
 
     public static void main(String[] args) {
 

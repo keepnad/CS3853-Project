@@ -2,7 +2,7 @@ package com;
 
 public class LogicGate {
 
-    byte inputA, inputB;
+    public byte inputA, inputB;
     String type;
     int ID;
 

@@ -1,11 +1,11 @@
-package com;
+package com.muxes;
 
 public abstract class Mux {
 
     int numInputs;
     int ID;
-    byte inputs[];
-    byte output;
+    public byte inputs[];
+    public byte output;
     char aOrB = '\0';
 
     Mux(int n, int U_number) {
@@ -21,5 +21,5 @@ public abstract class Mux {
         this.aOrB = aOrB;
     }
 
-    abstract void selectInput(int n);
+    public abstract void selectInput(int n);
 }

@@ -1,4 +1,9 @@
-package com;
+package com.instrHandling;
+
+import com.ClockTimer;
+import com.Main;
+import com.MemoryHandling;
+import com.instrHandling.InstrParser;
 
 public final class LogicInstrHandling {
 

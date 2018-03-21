@@ -1,24 +1,24 @@
-package com;
+package com.registers;
 
 public class FlagsRegister extends Register {
 
     byte input, output;
 
-    FlagsRegister(int bits, int U_number) {
+    public FlagsRegister(int bits, int U_number) {
 
         super(bits, U_number);
 
     }
 
-    void setInput(byte val){
+    public void setInput(byte val){
 
     }
 
-    byte getOutput() {
+    public byte getOutput() {
         return this.output;
     }
 
-    void clockIn(){
+    public void clockIn(){
         this.output = this.input;
     }
 }
