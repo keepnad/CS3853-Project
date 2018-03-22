@@ -79,11 +79,45 @@ public final class LogicInstrHandling {
 
     }
 
-    public static void and52() {
+    public static void and52(byte operand0, byte operand1, byte operand2) {
+        srcRegNum = InstrParser.selectReg(operand0, 1);
+
+        MemoryHandling.readFromMem(operand1, operand2);
+
+        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.regOutMuxB.selectInput(4);
+
+        Main.AND.inputA = Main.regOutMuxA.output;
+        Main.AND.inputB = Main.regOutMuxB.output;
+
+        Main.AND.operate();
+
+        Main.aluMux.selectInput(1);
+        Main.regInMuxA.selectInput(3);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(srcRegNum);
+        ClockTimer.waitForTick();
 
     }
 
-    public static void and53() {
+    public static void and53(byte operand0, byte operand1, byte operand2) {
+        srcRegNum = InstrParser.selectReg(operand2, 1);
+
+        MemoryHandling.readFromMem(operand0, operand1);
+
+        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.regOutMuxB.selectInput(4);
+
+        Main.AND.inputA = Main.regOutMuxA.output;
+        Main.AND.inputB = Main.regOutMuxB.output;
+
+        Main.AND.operate();
+
+        Main.aluMux.selectInput(1);
+        Main.dataBusMux.selectInput(2);
+
+        MemoryHandling.writeToMem(operand0, operand1, Main.dataBusMux.output);
+        ClockTimer.waitForTick();
 
     }
 
@@ -126,11 +160,45 @@ public final class LogicInstrHandling {
 
     }
 
-    public static void or62() {
+    public static void or62(byte operand0, byte operand1, byte operand2) {
+        srcRegNum = InstrParser.selectReg(operand0, 1);
+
+        MemoryHandling.readFromMem(operand1, operand2);
+
+        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.regOutMuxB.selectInput(4);
+
+        Main.OR.inputA = Main.regOutMuxA.output;
+        Main.OR.inputB = Main.regOutMuxB.output;
+
+        Main.OR.operate();
+
+        Main.aluMux.selectInput(2);
+        Main.regInMuxA.selectInput(3);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(srcRegNum);
+        ClockTimer.waitForTick();
 
     }
 
-    public static void or63() {
+    public static void or63(byte operand0, byte operand1, byte operand2) {
+        srcRegNum = InstrParser.selectReg(operand2, 1);
+
+        MemoryHandling.readFromMem(operand0, operand1);
+
+        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.regOutMuxB.selectInput(4);
+
+        Main.OR.inputA = Main.regOutMuxA.output;
+        Main.OR.inputB = Main.regOutMuxB.output;
+
+        Main.OR.operate();
+
+        Main.aluMux.selectInput(2);
+        Main.dataBusMux.selectInput(2);
+
+        MemoryHandling.writeToMem(operand0, operand1, Main.dataBusMux.output);
+        ClockTimer.waitForTick();
 
     }
 
@@ -173,11 +241,45 @@ public final class LogicInstrHandling {
 
     }
 
-    public static void xor72() {
+    public static void xor72(byte operand0, byte operand1, byte operand2) {
+        srcRegNum = InstrParser.selectReg(operand0, 1);
+
+        MemoryHandling.readFromMem(operand1, operand2);
+
+        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.regOutMuxB.selectInput(4);
+
+        Main.XOR.inputA = Main.regOutMuxA.output;
+        Main.XOR.inputB = Main.regOutMuxB.output;
+
+        Main.XOR.operate();
+
+        Main.aluMux.selectInput(3);
+        Main.regInMuxA.selectInput(3);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(srcRegNum);
+        ClockTimer.waitForTick();
 
     }
 
-    public static void xor73() {
+    public static void xor73(byte operand0, byte operand1, byte operand2) {
+        srcRegNum = InstrParser.selectReg(operand2, 1);
+
+        MemoryHandling.readFromMem(operand0, operand1);
+
+        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.regOutMuxB.selectInput(4);
+
+        Main.XOR.inputA = Main.regOutMuxA.output;
+        Main.XOR.inputB = Main.regOutMuxB.output;
+
+        Main.XOR.operate();
+
+        Main.aluMux.selectInput(3);
+        Main.dataBusMux.selectInput(2);
+
+        MemoryHandling.writeToMem(operand0, operand1, Main.dataBusMux.output);
+        ClockTimer.waitForTick();
 
     }
 }

@@ -34,30 +34,58 @@ public final class InstrParser {
 
     public static void runInstruction() {
         switch (opcode) {
+
+            //NOT instructions
             case (byte) 0x40:
                 LogicInstrHandling.not40(operand0);
                 break;
             case (byte) 0x43:
                 LogicInstrHandling.not43(operand0, operand1);
                 break;
+
+            //AND instructions
             case (byte) 0x50:
                 LogicInstrHandling.and50(operand0);
                 break;
             case (byte) 0x51:
                 LogicInstrHandling.and51(operand0, operand1);
                 break;
+            case (byte) 0x52:
+                LogicInstrHandling.and52(operand0, operand1, operand2);
+                break;
+            case (byte) 0x53:
+                LogicInstrHandling.and53(operand0, operand1, operand2);
+                break;
+
+            //OR instructions
             case (byte) 0x60:
                 LogicInstrHandling.or60(operand0);
                 break;
             case (byte) 0x61:
                 LogicInstrHandling.or61(operand0, operand1);
                 break;
+            case (byte) 0x62:
+                LogicInstrHandling.or62(operand0, operand1, operand2);
+                break;
+            case (byte) 0x63:
+                LogicInstrHandling.or63(operand0, operand1, operand2);
+                break;
+
+            //XOR instructions
             case (byte) 0x70:
                 LogicInstrHandling.xor70(operand0);
                 break;
             case (byte) 0x71:
                 LogicInstrHandling.xor71(operand0, operand1);
                 break;
+            case (byte) 0x72:
+                LogicInstrHandling.xor72(operand0, operand1, operand2);
+                break;
+            case (byte) 0x73:
+                LogicInstrHandling.xor73(operand0, operand1, operand2);
+                break;
+
+            //MOV instructions
             case (byte) 0x80:
                 MovInstrHandling.mov80(operand0);
                 break;
@@ -70,9 +98,12 @@ public final class InstrParser {
             case (byte) 0x83:
                 MovInstrHandling.mov83(operand0, operand1, operand2);
                 break;
+
+            //NOP instruction
             case (byte) 0xE0:
                 MovInstrHandling.nopE0();
                 break;
+
             default:
                 System.out.println("\nUnrecognized instruction, try again.\n");
                 break;
@@ -97,7 +128,7 @@ public final class InstrParser {
                     regNum = 0;
                     break;
                 case "01":
-                   //Main.DST = Main.R1;
+                    //Main.DST = Main.R1;
                     regNum = 1;
                     break;
                 case "10":
