@@ -21,6 +21,8 @@ public final class GlobalSetup {
 
         Main.CLK = false;
 
+        Main.flagValues = new boolean[3];
+
         Main.clockThread = new Thread(new ClockTimer());
         Main.clockThread.start();
 
@@ -33,6 +35,7 @@ public final class GlobalSetup {
         Main.instrLineHigh = (byte) 0x0;
         Main.instrLineLow = (byte) 0x0;
 
+        Main.adder = new AddSub(100);
         Main.AND = new LogicGate("AND", 101);
         Main.OR = new LogicGate("OR", 102);
         Main.XOR = new LogicGate("XOR", 103);

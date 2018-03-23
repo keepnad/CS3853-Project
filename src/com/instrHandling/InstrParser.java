@@ -34,6 +34,16 @@ public final class InstrParser {
 
     public static void runInstruction() {
         switch (opcode) {
+            //ADD instructions
+            case (byte) 0x10:
+                MathInstrHandling.addc10(operand0);
+                break;
+            case (byte) 0x11:
+                break;
+            case (byte) 0x12:
+                break;
+            case (byte) 0x13:
+                break;
 
             //NOT instructions
             case (byte) 0x40:

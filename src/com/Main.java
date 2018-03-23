@@ -18,11 +18,12 @@ public class Main {
     public static Mux ipMux, addyMux, regInMuxA, regOutMuxA, regInMuxB, regOutMuxB;
     public static Mux aluMux, flagsMux, spMux, dataBusMux;
     public static Demux2to4 regDeMux;
+    public static AddSub adder;
     public static byte dataOutA, dataOutB;
     public static byte instrLineHigh, instrLineLow, memRead;
     public static byte[][] RAM;
     public static byte[] EPROM, I_O;
-    public static boolean CLK;
+    public static boolean CLK, flagValues[];
     public static Thread clockThread;
 
     /**
@@ -62,7 +63,8 @@ public class Main {
                 System.out.printf("Register 0: 0x%02X\n", R0.getOutput());
                 System.out.printf("Register 1: 0x%02X\n", R1.getOutput());
                 System.out.printf("Register 2: 0x%02X\n", R2.getOutput());
-                System.out.printf("Register 3: 0x%02X\n", R3.getOutput());
+                System.out.printf("Register 3: 0x%02X\n\n", R3.getOutput());
+                System.out.println("Z: " + flagValues[0] + " N: " + flagValues[1] + " C: " + flagValues[2] + "\n");
             }
         }
     }

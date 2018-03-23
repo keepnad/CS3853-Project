@@ -7,7 +7,6 @@ import com.instrHandling.InstrParser;
 
 public final class LogicInstrHandling {
 
-    static StringBuilder binStrOperand0;
     static int dstRegNum, srcRegNum;
 
     public static void not40(byte operand0) {
