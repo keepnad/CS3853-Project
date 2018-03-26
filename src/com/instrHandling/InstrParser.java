@@ -39,10 +39,41 @@ public final class InstrParser {
                 MathInstrHandling.addc10(operand0);
                 break;
             case (byte) 0x11:
+                MathInstrHandling.addc11(operand0, operand1);
                 break;
             case (byte) 0x12:
+                MathInstrHandling.addc12(operand0, operand1, operand2);
                 break;
             case (byte) 0x13:
+                MathInstrHandling.addc13(operand0, operand1, operand2);
+                break;
+
+            //SUB instructions
+            case (byte) 0x20:
+                MathInstrHandling.subb20(operand0);
+                break;
+            case (byte) 0x21:
+                MathInstrHandling.subb21(operand0, operand1);
+                break;
+            case (byte) 0x22:
+                MathInstrHandling.subb22(operand0, operand1, operand2);
+                break;
+            case (byte) 0x23:
+                MathInstrHandling.subb23(operand0, operand1, operand2);
+                break;
+
+            //CMP instructions
+            case (byte) 0x30:
+                MathInstrHandling.cmp30(operand0);
+                break;
+            case (byte) 0x31:
+                MathInstrHandling.cmp31(operand0, operand1);
+                break;
+            case (byte) 0x32:
+                MathInstrHandling.cmp32(operand0, operand1, operand2);
+                break;
+            case (byte) 0x33:
+                MathInstrHandling.cmp33(operand0, operand1, operand2);
                 break;
 
             //NOT instructions

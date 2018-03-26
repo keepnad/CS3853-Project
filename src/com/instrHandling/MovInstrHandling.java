@@ -13,24 +13,13 @@ public final class MovInstrHandling {
     public static void mov80(byte operand0) {
 
         dstRegNum = InstrParser.selectReg(operand0, 1);
-
         srcRegNum = InstrParser.selectReg(operand0, 2);
 
-        //Main.SRC.setInput(Main.SRC.getOutput());
-        //System.err.println("value using SRC pointer: " + SRC.getOutput());
         Main.regOutMuxA.selectInput(srcRegNum);
-        //System.err.println("value from regOutMuxA: " + regOutMuxA.output);
-        //System.err.println("value from dataOutA: " + dataOutA);
         Main.regInMuxA.selectInput(0);
-        //System.err.println("value from regInMuxA: " + regInMuxA.output);
         Main.regDeMux.selectInput('A');
-        //System.err.println("destination reg number: " + dstRegNum);
         Main.regDeMux.selectReg(dstRegNum);
         ClockTimer.waitForTick();
-
-
-        //DST.setValue(SRC.getOutput());
-
     }
 
 
@@ -43,10 +32,6 @@ public final class MovInstrHandling {
         Main.regDeMux.selectInput('A');
         Main.regDeMux.selectReg(dstRegNum);
         ClockTimer.waitForTick();
-
-
-        //  DST.setValue(operand1);
-
     }
 
     public static void mov82(byte operand0, byte operand1, byte operand2) {
@@ -61,7 +46,7 @@ public final class MovInstrHandling {
     }
 
     public static void mov83(byte operand0, byte operand1, byte operand2) {
-        srcRegNum = InstrParser.selectReg(operand2, 1);
+        srcRegNum = InstrParser.selectReg(operand2, 2);
 
         Main.regOutMuxA.selectInput(srcRegNum);
         Main.dataBusMux.selectInput(0);

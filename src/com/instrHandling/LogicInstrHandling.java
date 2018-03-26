@@ -100,7 +100,7 @@ public final class LogicInstrHandling {
     }
 
     public static void and53(byte operand0, byte operand1, byte operand2) {
-        srcRegNum = InstrParser.selectReg(operand2, 1);
+        srcRegNum = InstrParser.selectReg(operand2, 2);
 
         MemoryHandling.readFromMem(operand0, operand1);
 
@@ -181,7 +181,7 @@ public final class LogicInstrHandling {
     }
 
     public static void or63(byte operand0, byte operand1, byte operand2) {
-        srcRegNum = InstrParser.selectReg(operand2, 1);
+        srcRegNum = InstrParser.selectReg(operand2, 2);
 
         MemoryHandling.readFromMem(operand0, operand1);
 
@@ -241,11 +241,11 @@ public final class LogicInstrHandling {
     }
 
     public static void xor72(byte operand0, byte operand1, byte operand2) {
-        srcRegNum = InstrParser.selectReg(operand0, 1);
+        dstRegNum = InstrParser.selectReg(operand0, 1);
 
         MemoryHandling.readFromMem(operand1, operand2);
 
-        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.regOutMuxA.selectInput(dstRegNum);
         Main.regOutMuxB.selectInput(4);
 
         Main.XOR.inputA = Main.regOutMuxA.output;
@@ -256,13 +256,13 @@ public final class LogicInstrHandling {
         Main.aluMux.selectInput(3);
         Main.regInMuxA.selectInput(3);
         Main.regDeMux.selectInput('A');
-        Main.regDeMux.selectReg(srcRegNum);
+        Main.regDeMux.selectReg(dstRegNum);
         ClockTimer.waitForTick();
 
     }
 
     public static void xor73(byte operand0, byte operand1, byte operand2) {
-        srcRegNum = InstrParser.selectReg(operand2, 1);
+        srcRegNum = InstrParser.selectReg(operand2, 2);
 
         MemoryHandling.readFromMem(operand0, operand1);
 
