@@ -5,6 +5,8 @@ import com.muxes.Demux2to4;
 import com.muxes.Mux;
 import com.registers.Register;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 
 /**
@@ -38,34 +40,75 @@ public class Main {
 
         GlobalSetup.initializeAll();
 
+        int i = 0, j = 0;
         Scanner input = new Scanner(System.in);
+        Scanner programInput = null;
+        boolean fileFound = false;
         String hexInstr;
         boolean parseSuccess;
+        System.out.println("Input x to execute program in memory, input i to enter instructions manually");
+        String execType = input.nextLine();
 
-        System.out.println("\nInput q to quit, input memdump to write RAM to file\n");
-        while (true) {
-            System.out.print("Input hex instruction: ");
-            hexInstr = input.nextLine();
-            if (hexInstr.length() > 0 && (hexInstr.equals("q") || hexInstr.equals("Q"))) {
-                System.out.println("\nQuit.");
-                System.exit(0);
-            } else if (hexInstr.toLowerCase().equals("memdump")) {
+        switch (execType.toLowerCase()) {
+            case "x":
+                System.out.println("Enter name of program file: ");
+                while(!fileFound) {
+                    String inFilename = input.nextLine();
+                    try {
+                        programInput = new Scanner(new FileReader(inFilename));
+                        fileFound = true;
+                    } catch (FileNotFoundException e1) {
+                        System.out.println("File not found, try again: ");
+                    }
+                }
+                while(programInput.hasNext()){
+
+                    RAM[i][j] = (byte) Integer.parseInt(programInput.next(), 16);
+
+                    j++;
+                    if(j == 4095){
+                        j = 0;
+                        i++;
+                    }
+                    if (i == 14){
+                        MemoryHandling.memDump();
+                        System.out.println("The file is that long? Huh...");
+                        System.exit(0);
+                    }
+                }
+
                 MemoryHandling.memDump();
-                System.out.println("\nMemory dumped to ramDump.txt\n");
-                continue;
-            }
-            hexInstr = hexInstr.replaceAll("\\s", "");
+                System.exit(0);
+                //while(true){
 
-            parseSuccess = InstrParser.parse(hexInstr);
-            if (parseSuccess) {
-                InstrParser.runInstruction();
+                //}
 
-                System.out.printf("Register 0: 0x%02X\n", R0.getOutput());
-                System.out.printf("Register 1: 0x%02X\n", R1.getOutput());
-                System.out.printf("Register 2: 0x%02X\n", R2.getOutput());
-                System.out.printf("Register 3: 0x%02X\n\n", R3.getOutput());
-                System.out.println("Z: " + flagValues[0] + " N: " + flagValues[1] + " C: " + flagValues[2] + "\n");
-            }
+            case "i":
+                System.out.println("\nInput q to quit, input memdump to write RAM to file\n");
+                while (true) {
+                    System.out.print("Input hex instruction: ");
+                    hexInstr = input.nextLine();
+                    if (hexInstr.length() > 0 && (hexInstr.equals("q") || hexInstr.equals("Q"))) {
+                        System.out.println("\nQuit.");
+                        System.exit(0);
+                    } else if (hexInstr.toLowerCase().equals("memdump")) {
+                        MemoryHandling.memDump();
+                        System.out.println("\nMemory dumped to ramDump.txt\n");
+                        continue;
+                    }
+                    hexInstr = hexInstr.replaceAll("\\s", "");
+
+                    parseSuccess = InstrParser.parse(hexInstr);
+                    if (parseSuccess) {
+                        InstrParser.runInstruction();
+
+                        System.out.printf("Register 0: 0x%02X\n", R0.getOutput());
+                        System.out.printf("Register 1: 0x%02X\n", R1.getOutput());
+                        System.out.printf("Register 2: 0x%02X\n", R2.getOutput());
+                        System.out.printf("Register 3: 0x%02X\n\n", R3.getOutput());
+                        System.out.println("Z: " + flagValues[0] + " N: " + flagValues[1] + " C: " + flagValues[2] + "\n");
+                    }
+                }
         }
     }
 }
