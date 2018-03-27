@@ -279,7 +279,6 @@ public final class MathInstrHandling {
                     valueToFlags |= 0x01;
                 }
             }
-
         }
 
         Main.FLAGS.setInput(valueToFlags);

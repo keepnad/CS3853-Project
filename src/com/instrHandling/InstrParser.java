@@ -212,4 +212,17 @@ public final class InstrParser {
 
         return regNum;
     }
+
+
+    public static int getInstrLength(byte opcode){
+        int instrLength = 0;
+
+        return instrLength;
+    }
+
+    public static String makeHexInstrString(int length, int chipNum, int offset){
+        String hexInstr = "";
+
+        return hexInstr;
+    }
 }

@@ -45,6 +45,7 @@ public final class MemoryHandling {
 
     public static void memDump() {
         PrintWriter writer;
+        int zeroCount = 0;
 
         try {
             writer = new PrintWriter("ramDump.txt");
@@ -57,7 +58,14 @@ public final class MemoryHandling {
 
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 4096; j++) {
-                writer.printf("0x%X%03X\t\t%04X\n", i, j, Main.RAM[i][j]);
+                if(Main.RAM[i][j] == (byte) 0x0){
+                    zeroCount++;
+                }else{
+                    zeroCount = 0;
+                }
+                if(zeroCount < 4) {
+                    writer.printf("0x%X%03X\t\t%02X\n", i, j, Main.RAM[i][j]);
+                }
             }
         }
 

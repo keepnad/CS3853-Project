@@ -45,6 +45,7 @@ public class Main {
         Scanner programInput = null;
         boolean fileFound = false;
         String hexInstr;
+        int instrLength;
         boolean parseSuccess;
         System.out.println("Input x to execute program in memory, input i to enter instructions manually");
         String execType = input.nextLine();
@@ -78,7 +79,17 @@ public class Main {
                 }
 
                 MemoryHandling.memDump();
-                System.exit(0);
+                instrLength = InstrParser.getInstrLength(Main.RAM[0][0]);
+                hexInstr = InstrParser.makeHexInstrString(instrLength, 0, 0);
+                parseSuccess = InstrParser.parse(hexInstr);
+
+                if(parseSuccess){
+                    InstrParser.runInstruction();
+                }
+                else{
+                    System.err.println("Bad instruction");
+                    break;
+                }
                 //while(true){
 
                 //}
