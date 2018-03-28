@@ -65,6 +65,8 @@ public final class MemoryHandling {
                 }
                 if(zeroCount < 4) {
                     writer.printf("0x%X%03X\t\t%02X\n", i, j, Main.RAM[i][j]);
+                }else if(zeroCount == 4){
+                    writer.println("");
                 }
             }
         }

@@ -90,6 +90,14 @@ public class Main {
                     System.err.println("Bad instruction");
                     break;
                 }
+
+                System.out.printf("Register 0: 0x%02X\n", R0.getOutput());
+                System.out.printf("Register 1: 0x%02X\n", R1.getOutput());
+                System.out.printf("Register 2: 0x%02X\n", R2.getOutput());
+                System.out.printf("Register 3: 0x%02X\n\n", R3.getOutput());
+                System.out.println("Z: " + flagValues[0] + " N: " + flagValues[1] + " C: " + flagValues[2] + "\n");
+
+                System.exit(0);
                 //while(true){
 
                 //}
@@ -99,7 +107,7 @@ public class Main {
                 while (true) {
                     System.out.print("Input hex instruction: ");
                     hexInstr = input.nextLine();
-                    if (hexInstr.length() > 0 && (hexInstr.equals("q") || hexInstr.equals("Q"))) {
+                    if (hexInstr.equals("q") || hexInstr.equals("Q")) {
                         System.out.println("\nQuit.");
                         System.exit(0);
                     } else if (hexInstr.toLowerCase().equals("memdump")) {

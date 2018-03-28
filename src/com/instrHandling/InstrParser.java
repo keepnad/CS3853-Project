@@ -1,5 +1,7 @@
 package com.instrHandling;
 
+import com.Main;
+
 public final class InstrParser {
     static long instruction = 0;
     static byte opcode = 0;
@@ -217,11 +219,63 @@ public final class InstrParser {
     public static int getInstrLength(byte opcode){
         int instrLength = 0;
 
+        switch(opcode){
+            case (byte) 0x10:
+            case (byte) 0x20:
+            case (byte) 0x30:
+            case (byte) 0x40:
+            case (byte) 0x50:
+            case (byte) 0x60:
+            case (byte) 0x70:
+            case (byte) 0x80:
+                instrLength = 2;
+                break;
+            case (byte) 0x11:
+            case (byte) 0x21:
+            case (byte) 0x31:
+            case (byte) 0x43:
+            case (byte) 0x51:
+            case (byte) 0x61:
+            case (byte) 0x71:
+            case (byte) 0x81:
+                instrLength = 3;
+                break;
+            case (byte) 0x12:
+            case (byte) 0x22:
+            case (byte) 0x32:
+            case (byte) 0x52:
+            case (byte) 0x62:
+            case (byte) 0x72:
+            case (byte) 0x82:
+            case (byte) 0x13:
+            case (byte) 0x23:
+            case (byte) 0x33:
+            case (byte) 0x53:
+            case (byte) 0x63:
+            case (byte) 0x73:
+            case (byte) 0x83:
+                instrLength = 4;
+                break;
+        }
+
         return instrLength;
     }
 
     public static String makeHexInstrString(int length, int chipNum, int offset){
         String hexInstr = "";
+
+        for(int i = 0; i < length; i++){
+            hexInstr += String.format("%X", Main.RAM[chipNum][offset]);
+            offset++;
+            if(offset == 4096){
+                offset = 0;
+                chipNum++;
+            }
+            if(chipNum >= 14){
+                System.err.println("Chipnum out of range 0 - 13");
+                System.exit(-1);
+            }
+        }
 
         return hexInstr;
     }
