@@ -15,7 +15,7 @@ public final class InstrParser {
         try {
             instruction = Long.parseLong(hexInstr, 16);
         } catch (NumberFormatException e) {
-            System.out.println("\nBad input, try again.\n");
+            //System.out.println("\nBad input, try again. " +hexInstr + "\n");
             return false;
         }
         if (hexInstr.length() == 4) {
@@ -265,14 +265,14 @@ public final class InstrParser {
         String hexInstr = "";
 
         for(int i = 0; i < length; i++){
-            hexInstr += String.format("%X", Main.RAM[chipNum][offset]);
+            hexInstr += String.format("%02X", Main.Memory[chipNum][offset]);
             offset++;
             if(offset == 4096){
                 offset = 0;
                 chipNum++;
             }
-            if(chipNum >= 14){
-                System.err.println("Chipnum out of range 0 - 13");
+            if(chipNum >= 16 || chipNum == 14){
+                System.err.println("Chipnum out of range 0 - 15, or is 14");
                 System.exit(-1);
             }
         }

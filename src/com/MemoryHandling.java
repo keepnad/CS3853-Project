@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 
 /**
  * MemoryHandling class:
- * * Non-instanced, static methods for use with RAM
+ * * Non-instanced, static methods for use with Memory
  */
 public final class MemoryHandling {
 
@@ -21,9 +21,9 @@ public final class MemoryHandling {
             return;
         }
 
-        Main.RAM[chipNumber][offset] = value;
+        Main.Memory[chipNumber][offset] = value;
 
-        //System.out.printf("\nwritten to ram: %02X", Main.RAM[chipNumber][offset]);
+        //System.out.printf("\nwritten to ram: %02X", Main.Memory[chipNumber][offset]);
 
     }
 
@@ -39,7 +39,7 @@ public final class MemoryHandling {
             return;
         }
 
-        Main.memRead = Main.RAM[chipNumber][offset];
+        Main.memRead = Main.Memory[chipNumber][offset];
 
     }
 
@@ -48,26 +48,43 @@ public final class MemoryHandling {
         int zeroCount = 0;
 
         try {
-            writer = new PrintWriter("ramDump.txt");
+            writer = new PrintWriter("memDump.txt");
         } catch (IOException e1) {
             System.out.println("\nError creating dump file.\n");
             return;
         }
 
+        writer.printf("-----RAM STARTS HERE-----\n\n");
         writer.println("Address\t\tVal");
 
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 4096; j++) {
-                if(Main.RAM[i][j] == (byte) 0x0){
+                if(Main.Memory[i][j] == (byte) 0x0){
                     zeroCount++;
                 }else{
                     zeroCount = 0;
                 }
                 if(zeroCount < 4) {
-                    writer.printf("0x%X%03X\t\t%02X\n", i, j, Main.RAM[i][j]);
+                    writer.printf("0x%X%03X\t\t%02X\n", i, j, Main.Memory[i][j]);
                 }else if(zeroCount == 4){
                     writer.println("");
                 }
+            }
+        }
+
+        int i = 15;
+        writer.printf("-----EPROM STARTS HERE-----\n\n");
+        writer.println("Address\t\tVal");
+        for (int j = 0; j < 4096; j++) {
+            if(Main.Memory[i][j] == (byte) 0x0){
+                zeroCount++;
+            }else{
+                zeroCount = 0;
+            }
+            if(zeroCount < 4) {
+                writer.printf("0x%X%03X\t\t%02X\n", i, j, Main.Memory[i][j]);
+            }else if(zeroCount == 4){
+                writer.println("");
             }
         }
 

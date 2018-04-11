@@ -26,9 +26,7 @@ public final class GlobalSetup {
         Main.clockThread = new Thread(new ClockTimer());
         Main.clockThread.start();
 
-        Main.RAM = new byte[14][4096];
-        Main.EPROM = new byte[4096];
-        Main.I_O = new byte[4096];
+        Main.Memory = new byte[16][4096];
 
         Main.dataOutA = (byte) 0x0;
         Main.dataOutB = (byte) 0x0;

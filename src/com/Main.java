@@ -23,10 +23,10 @@ public class Main {
     public static AddSub adder;
     public static byte dataOutA, dataOutB;
     public static byte instrLineHigh, instrLineLow, memRead;
-    public static byte[][] RAM;
-    public static byte[] EPROM, I_O;
+    public static byte[][] Memory;
     public static boolean CLK, flagValues[];
     public static Thread clockThread;
+    final static int EPROM_CHIP = 15;
 
     /**
      * main method: calls initializeAll to set up all the globals
@@ -40,7 +40,7 @@ public class Main {
 
         GlobalSetup.initializeAll();
 
-        int i = 0, j = 0;
+        int i =0, j = 0;
         Scanner input = new Scanner(System.in);
         Scanner programInput = null;
         boolean fileFound = false;
@@ -62,48 +62,46 @@ public class Main {
                         System.out.println("File not found, try again: ");
                     }
                 }
+
                 while(programInput.hasNext()){
 
-                    RAM[i][j] = (byte) Integer.parseInt(programInput.next(), 16);
+                    Memory[EPROM_CHIP][j] = (byte) Integer.parseInt(programInput.next(), 16);
 
                     j++;
                     if(j == 4095){
-                        j = 0;
-                        i++;
-                    }
-                    if (i == 14){
                         MemoryHandling.memDump();
                         System.out.println("The file is that long? Huh...");
                         System.exit(0);
                     }
                 }
 
-                MemoryHandling.memDump();
-                instrLength = InstrParser.getInstrLength(Main.RAM[0][0]);
-                hexInstr = InstrParser.makeHexInstrString(instrLength, 0, 0);
-                parseSuccess = InstrParser.parse(hexInstr);
+                int tempIP = 0;
+                parseSuccess = true;
 
-                if(parseSuccess){
-                    InstrParser.runInstruction();
+                while(parseSuccess){
+                    ClockTimer.waitForTick();
+                    instrLength = InstrParser.getInstrLength(Main.Memory[EPROM_CHIP][tempIP]);
+                    hexInstr = InstrParser.makeHexInstrString(instrLength, EPROM_CHIP, tempIP);
+                    tempIP = tempIP + instrLength;
+                    parseSuccess = InstrParser.parse(hexInstr);
+                    if(parseSuccess) {
+                        InstrParser.runInstruction();
+                    }
                 }
-                else{
-                    System.err.println("Bad instruction");
-                    break;
-                }
+
+                System.out.println("\nProgram ended. Registers and flags below, memory in memDump.txt\n");
 
                 System.out.printf("Register 0: 0x%02X\n", R0.getOutput());
                 System.out.printf("Register 1: 0x%02X\n", R1.getOutput());
                 System.out.printf("Register 2: 0x%02X\n", R2.getOutput());
                 System.out.printf("Register 3: 0x%02X\n\n", R3.getOutput());
                 System.out.println("Z: " + flagValues[0] + " N: " + flagValues[1] + " C: " + flagValues[2] + "\n");
+                MemoryHandling.memDump();
 
                 System.exit(0);
-                //while(true){
-
-                //}
 
             case "i":
-                System.out.println("\nInput q to quit, input memdump to write RAM to file\n");
+                System.out.println("\nInput q to quit, input memdump to write Memory to file\n");
                 while (true) {
                     System.out.print("Input hex instruction: ");
                     hexInstr = input.nextLine();
@@ -112,7 +110,7 @@ public class Main {
                         System.exit(0);
                     } else if (hexInstr.toLowerCase().equals("memdump")) {
                         MemoryHandling.memDump();
-                        System.out.println("\nMemory dumped to ramDump.txt\n");
+                        System.out.println("\nMemory dumped to memDump.txt\n");
                         continue;
                     }
                     hexInstr = hexInstr.replaceAll("\\s", "");
