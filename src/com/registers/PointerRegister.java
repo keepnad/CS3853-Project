@@ -1,9 +1,11 @@
 package com.registers;
 
+import com.Main;
+
 public class PointerRegister extends Register {
 
-    byte inputHigh, inputLow;
-    byte outputHigh, outputLow;
+    public byte inputHigh, inputLow;
+    public byte outputHigh, outputLow;
 
     public PointerRegister(int bits, int U_number) {
 
@@ -24,6 +26,8 @@ public class PointerRegister extends Register {
 
                 break;
             case 15:
+                this.inputHigh = Main.ipMux.outputHigh;
+                this.inputLow = Main.ipMux.output;
 
                 break;
             default:
@@ -36,11 +40,11 @@ public class PointerRegister extends Register {
         return (byte) 0x0;
     }
 
-    byte getHighOutput(){
+    public byte getHighOutput(){
         return outputHigh;
     }
 
-    byte getLowOutput(){
+    public byte getLowOutput(){
         return outputLow;
     }
 

@@ -34,6 +34,9 @@ public final class GlobalSetup {
         Main.instrLineLow = (byte) 0x0;
 
         Main.adder = new AddSub(100);
+        Main.incInstr = new AddSub(105);
+        Main.relJump = new AddSub(106);
+
         Main.AND = new LogicGate("AND", 101);
         Main.OR = new LogicGate("OR", 102);
         Main.XOR = new LogicGate("XOR", 103);

@@ -3,6 +3,7 @@ package com;
 import com.instrHandling.InstrParser;
 import com.muxes.Demux2to4;
 import com.muxes.Mux;
+import com.registers.PointerRegister;
 import com.registers.Register;
 
 import java.io.FileNotFoundException;
@@ -15,18 +16,21 @@ import java.util.Scanner;
  */
 public class Main {
 
-    public static Register R0, R1, R2, R3, SP, IP, FLAGS, SRC, DST;
+    public static Register R0, R1, R2, R3, FLAGS, SRC, DST;
+    public static PointerRegister SP, IP;
     public static LogicGate AND, OR, XOR, NOT;
     public static Mux ipMux, addyMux, regInMuxA, regOutMuxA, regInMuxB, regOutMuxB;
     public static Mux aluMux, flagsMux, spMux, dataBusMux;
     public static Demux2to4 regDeMux;
-    public static AddSub adder;
+    public static AddSub adder, incInstr, relJump;
     public static byte dataOutA, dataOutB;
     public static byte instrLineHigh, instrLineLow, memRead;
     public static byte[][] Memory;
     public static boolean CLK, flagValues[];
     public static Thread clockThread;
     final static int EPROM_CHIP = 15;
+    public static int instrLength, relOffset;
+
 
     /**
      * main method: calls initializeAll to set up all the globals
@@ -40,12 +44,11 @@ public class Main {
 
         GlobalSetup.initializeAll();
 
-        int i =0, j = 0;
+        int j = 0;
         Scanner input = new Scanner(System.in);
         Scanner programInput = null;
         boolean fileFound = false;
         String hexInstr;
-        int instrLength;
         boolean parseSuccess;
         System.out.println("Input x to execute program in memory, input i to enter instructions manually");
         String execType = input.nextLine();
@@ -75,14 +78,19 @@ public class Main {
                     }
                 }
 
-                int tempIP = 0;
+                //int tempIP = 0;
                 parseSuccess = true;
+                IP.outputLow = IP.inputLow = (byte) 0x00;
+                IP.outputHigh = IP.inputHigh = (byte) 0xF0;
 
                 while(parseSuccess){
-                    ClockTimer.waitForTick();
-                    instrLength = InstrParser.getInstrLength(Main.Memory[EPROM_CHIP][tempIP]);
-                    hexInstr = InstrParser.makeHexInstrString(instrLength, EPROM_CHIP, tempIP);
-                    tempIP = tempIP + instrLength;
+                    //ClockTimer.waitForTick();
+                    int pointer = IPHandling.getCurrentPointer();
+                    instrLength = InstrParser.getInstrLength(Main.Memory[EPROM_CHIP][pointer]);
+                    hexInstr = InstrParser.makeHexInstrString(instrLength, EPROM_CHIP, pointer);
+                    ipMux.selectInput(2);
+                    IP.inputLow = ipMux.output;
+                    IP.inputHigh = ipMux.outputHigh;
                     parseSuccess = InstrParser.parse(hexInstr);
                     if(parseSuccess) {
                         InstrParser.runInstruction();
