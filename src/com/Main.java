@@ -88,9 +88,6 @@ public class Main {
                     int pointer = IPHandling.getCurrentPointer();
                     instrLength = InstrParser.getInstrLength(Main.Memory[EPROM_CHIP][pointer]);
                     hexInstr = InstrParser.makeHexInstrString(instrLength, EPROM_CHIP, pointer);
-                    ipMux.selectInput(2);
-                    IP.inputLow = ipMux.output;
-                    IP.inputHigh = ipMux.outputHigh;
                     parseSuccess = InstrParser.parse(hexInstr);
                     if(parseSuccess) {
                         InstrParser.runInstruction();
@@ -99,10 +96,10 @@ public class Main {
 
                 System.out.println("\nProgram ended. Registers and flags below, memory in memDump.txt\n");
 
-                System.out.printf("Register 0: 0x%02X\n", R0.getOutput());
-                System.out.printf("Register 1: 0x%02X\n", R1.getOutput());
-                System.out.printf("Register 2: 0x%02X\n", R2.getOutput());
-                System.out.printf("Register 3: 0x%02X\n\n", R3.getOutput());
+                System.out.printf("Register 0: %02X\n", R0.getOutput());
+                System.out.printf("Register 1: %02X\n", R1.getOutput());
+                System.out.printf("Register 2: %02X\n", R2.getOutput());
+                System.out.printf("Register 3: %02X\n\n", R3.getOutput());
                 System.out.println("Z: " + flagValues[0] + " N: " + flagValues[1] + " C: " + flagValues[2] + "\n");
                 MemoryHandling.memDump();
 
@@ -127,10 +124,10 @@ public class Main {
                     if (parseSuccess) {
                         InstrParser.runInstruction();
 
-                        System.out.printf("Register 0: 0x%02X\n", R0.getOutput());
-                        System.out.printf("Register 1: 0x%02X\n", R1.getOutput());
-                        System.out.printf("Register 2: 0x%02X\n", R2.getOutput());
-                        System.out.printf("Register 3: 0x%02X\n\n", R3.getOutput());
+                        System.out.printf("Register 0: %02X\n", R0.getOutput());
+                        System.out.printf("Register 1: %02X\n", R1.getOutput());
+                        System.out.printf("Register 2: %02X\n", R2.getOutput());
+                        System.out.printf("Register 3: %02X\n\n", R3.getOutput());
                         System.out.println("Z: " + flagValues[0] + " N: " + flagValues[1] + " C: " + flagValues[2] + "\n");
                     }
                 }

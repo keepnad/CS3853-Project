@@ -45,7 +45,7 @@ public class AddSub {
                 fullAddy += Main.relOffset;
 
                 Main.ipMux.inputs[3] = (byte) (fullAddy & 0xFF);
-                Main.ipMux.inputHigh[3] = (byte) ((fullAddy / 0x100) & 0xFF);
+                Main.ipMux.inputHigh[3] = (byte) ((fullAddy >>> 8) & 0xFF);
                 break;
         }
     }

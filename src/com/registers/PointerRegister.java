@@ -17,7 +17,7 @@ public class PointerRegister extends Register {
 
     }
 
-    void setInput(byte valHigh, byte valLow) {
+    public void setInput(byte valHigh, byte valLow) {
         this.inputHigh = valHigh;
         this.inputLow = valLow;
 

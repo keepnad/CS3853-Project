@@ -18,9 +18,9 @@ public class Mux4To1 extends Mux {
                 this.inputs[1] = Main.instrLineLow;
                 this.inputHigh[1] = Main.instrLineHigh;
 
-                Main.incInstr.operate();
+                //Main.incInstr.operate();
 
-                Main.relJump.operate();
+                //Main.relJump.operate();
 
                 break;
 

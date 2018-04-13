@@ -35,6 +35,18 @@ public final class InstrParser {
     }
 
     public static void runInstruction() {
+
+        if (opcode == (byte) 0xB9) {
+            Main.incInstr.operate();
+            Main.relJump.operate();
+            Main.ipMux.selectInput(3);
+        } else {
+            Main.incInstr.operate();
+            Main.ipMux.selectInput(2);
+        }
+        Main.IP.inputLow = Main.ipMux.output;
+        Main.IP.inputHigh = Main.ipMux.outputHigh;
+
         switch (opcode) {
             //ADD instructions
             case (byte) 0x10:
@@ -142,6 +154,32 @@ public final class InstrParser {
                 MovInstrHandling.mov83(operand0, operand1, operand2);
                 break;
 
+            //JMP instructions
+            case (byte) 0xB8:
+                JumpInstrHandling.jmpB8(operand0);
+                break;
+            case (byte) 0xB9:
+                JumpInstrHandling.jmpB9(operand0, operand1);
+                break;
+            case (byte) 0xD6:
+                JumpInstrHandling.jloD6(operand0, operand1);
+                break;
+            case (byte) 0xD7:
+                JumpInstrHandling.jhsD7(operand0, operand1);
+                break;
+            case (byte) 0xD8:
+                JumpInstrHandling.jeqD8(operand0, operand1);
+                break;
+            case (byte) 0xD9:
+                JumpInstrHandling.jneD9(operand0, operand1);
+                break;
+            case (byte) 0xDA:
+                JumpInstrHandling.jmiDA(operand0, operand1);
+                break;
+            case (byte) 0xDB:
+                JumpInstrHandling.jplDB(operand0, operand1);
+                break;
+
             //NOP instruction
             case (byte) 0xE0:
                 MovInstrHandling.nopE0();
@@ -216,10 +254,13 @@ public final class InstrParser {
     }
 
 
-    public static int getInstrLength(byte opcode){
+    public static int getInstrLength(byte opcode) {
         int instrLength = 0;
 
-        switch(opcode){
+        switch (opcode) {
+            case (byte) 0xE0:
+                instrLength = 1;
+                break;
             case (byte) 0x10:
             case (byte) 0x20:
             case (byte) 0x30:
@@ -228,6 +269,7 @@ public final class InstrParser {
             case (byte) 0x60:
             case (byte) 0x70:
             case (byte) 0x80:
+            case (byte) 0xB8:
                 instrLength = 2;
                 break;
             case (byte) 0x11:
@@ -238,6 +280,13 @@ public final class InstrParser {
             case (byte) 0x61:
             case (byte) 0x71:
             case (byte) 0x81:
+            case (byte) 0xB9:
+            case (byte) 0xD6:
+            case (byte) 0xD7:
+            case (byte) 0xD8:
+            case (byte) 0xD9:
+            case (byte) 0xDA:
+            case (byte) 0xDB:
                 instrLength = 3;
                 break;
             case (byte) 0x12:
@@ -261,17 +310,17 @@ public final class InstrParser {
         return instrLength;
     }
 
-    public static String makeHexInstrString(int length, int chipNum, int offset){
+    public static String makeHexInstrString(int length, int chipNum, int offset) {
         String hexInstr = "";
 
-        for(int i = 0; i < length; i++){
+        for (int i = 0; i < length; i++) {
             hexInstr += String.format("%02X", Main.Memory[chipNum][offset]);
             offset++;
-            if(offset == 4096){
+            if (offset == 4096) {
                 offset = 0;
                 chipNum++;
             }
-            if(chipNum >= 16 || chipNum == 14){
+            if (chipNum >= 16 || chipNum == 14) {
                 System.err.println("Chipnum out of range 0 - 15, or is 14");
                 System.exit(-1);
             }
