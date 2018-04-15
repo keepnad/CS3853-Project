@@ -36,7 +36,7 @@ public final class InstrParser {
 
     public static void runInstruction() {
 
-        if (opcode == (byte) 0xB9) {
+        if (opcode >= (byte) 0xD6 && opcode <= (byte) 0xDB) {
             Main.incInstr.operate();
             Main.relJump.operate();
             Main.ipMux.selectInput(3);
@@ -153,6 +153,8 @@ public final class InstrParser {
             case (byte) 0x83:
                 MovInstrHandling.mov83(operand0, operand1, operand2);
                 break;
+            case (byte) 0x88:
+                MovInstrHandling.mov88(operand0, operand1);
 
             //JMP instructions
             case (byte) 0xB8:

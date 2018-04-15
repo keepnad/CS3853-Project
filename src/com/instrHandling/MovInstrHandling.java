@@ -8,7 +8,7 @@ import com.instrHandling.InstrParser;
 public final class MovInstrHandling {
 
     static StringBuilder binStrOperand0, binStrOperand1, binStrOpcode;
-    static int srcRegNum, dstRegNum;
+    static int srcRegNum, srcRegNumHigh, dstRegNum, dstRegNumHigh;
 
     public static void mov80(byte operand0) {
 
@@ -53,6 +53,26 @@ public final class MovInstrHandling {
         MemoryHandling.writeToMem(operand0, operand1, Main.dataBusMux.output);
         ClockTimer.waitForTick();
 
+    }
+
+    public static void mov88(byte operand0, byte operand1){
+        dstRegNum = InstrParser.selectReg(operand0, 1);
+        dstRegNumHigh = InstrParser.selectReg(operand0, 2);
+        srcRegNum = InstrParser.selectReg(operand1, 1);
+        srcRegNumHigh = InstrParser.selectReg(operand1, 2);
+
+        //System.out.println("src = " + srcRegNum + " " + srcRegNumHigh);
+        //System.out.println("dst = " + dstRegNum + " " + dstRegNumHigh);
+        Main.regOutMuxA.selectInput(srcRegNum);
+        Main.regOutMuxB.selectInput(srcRegNumHigh);
+        Main.regInMuxA.selectInput(0);
+        Main.regInMuxB.selectInput(0);
+        Main.regDeMux.selectInput('A');
+        Main.regDeMux.selectReg(dstRegNum);
+        Main.regDeMux.selectInput('B');
+        Main.regDeMux.selectReg(dstRegNumHigh);
+
+        ClockTimer.waitForTick();
     }
 
     public static void nopE0() {

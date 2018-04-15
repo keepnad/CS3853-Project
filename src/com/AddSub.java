@@ -4,6 +4,7 @@ public class AddSub {
 
     public byte inputA, inputB;
     public byte carryIn;
+    int fullAddy;
     int ID;
 
     public AddSub(int U_number) {
@@ -33,7 +34,7 @@ public class AddSub {
             break;
 
             case 105:
-                int fullAddy = Main.IP.outputHigh * 0x100 + Main.IP.outputLow;
+                fullAddy = Main.IP.outputHigh * 0x100 + Main.IP.outputLow;
                 fullAddy += Main.instrLength;
 
                 Main.ipMux.inputs[2] = (byte) (fullAddy & 0xFF);

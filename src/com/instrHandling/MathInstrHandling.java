@@ -251,7 +251,7 @@ public final class MathInstrHandling {
         if (result == (byte) 0x0) {
             valueToFlags |= 0x08;
         }
-        if (result <= (byte) 0xFF) {
+        if (result < (byte) 0x00) {
             valueToFlags |= 0x02;
         }
         if (operation.equals("add")) {

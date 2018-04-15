@@ -4,7 +4,7 @@ import com.Main;
 
 public class FlagsRegister extends Register {
 
-    public byte input, output, mask = 0x0F;
+    public byte input, output, mask = (byte) 0x0F;
 
     public boolean zeroFlag, signFlag, carryFlag;
 

@@ -86,8 +86,10 @@ public class Main {
                 while(parseSuccess){
                     //ClockTimer.waitForTick();
                     int pointer = IPHandling.getCurrentPointer();
-                    instrLength = InstrParser.getInstrLength(Main.Memory[EPROM_CHIP][pointer]);
-                    hexInstr = InstrParser.makeHexInstrString(instrLength, EPROM_CHIP, pointer);
+                    int chipPointer = pointer >>> 28;
+                    int offestPointer = pointer & 0xFFF;
+                    instrLength = InstrParser.getInstrLength(Main.Memory[chipPointer][offestPointer]);
+                    hexInstr = InstrParser.makeHexInstrString(instrLength, chipPointer, offestPointer);
                     parseSuccess = InstrParser.parse(hexInstr);
                     if(parseSuccess) {
                         InstrParser.runInstruction();
