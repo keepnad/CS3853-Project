@@ -5,8 +5,11 @@ import com.Main;
 
 public final class JumpInstrHandling {
     public static void jmpB8(byte operand0) {
-        int srcRegHigh = InstrParser.selectReg(operand0, 1);
-        int srcRegLow = InstrParser.selectReg(operand0, 2);
+        int[] registers = InstrParser.decode16(operand0);
+        //int srcRegHigh = InstrParser.selectReg(operand0, 1);
+        //int srcRegLow = InstrParser.selectReg(operand0, 2);
+        int srcRegHigh = registers[2];
+        int srcRegLow = registers[3];
 
         Main.regOutMuxA.selectInput(srcRegLow);
         Main.regOutMuxB.selectInput(srcRegHigh);

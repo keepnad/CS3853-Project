@@ -50,7 +50,7 @@ public class Main {
         boolean fileFound = false;
         String hexInstr;
         boolean parseSuccess;
-        System.out.println("Input x to execute program in memory, input i to enter instructions manually");
+        System.out.println("Enter x to execute program in memory, enter i to enter instructions manually");
         String execType = input.nextLine();
 
         switch (execType.toLowerCase()) {
