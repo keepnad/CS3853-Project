@@ -154,7 +154,7 @@ public final class InstrParser {
                 MovInstrHandling.mov83(operand0, operand1, operand2);
                 break;
             case (byte) 0x88:
-                MovInstrHandling.mov88(operand0, operand1);
+                MovInstrHandling.mov88(operand0);
 
             //JMP instructions
             case (byte) 0xB8:
@@ -253,6 +253,81 @@ public final class InstrParser {
         }
 
         return regNum;
+    }
+
+    public static int[] decode16(byte operand){
+        int [] registers = new int[4];
+        StringBuilder binaryString = new StringBuilder(Integer.toBinaryString(operand));
+
+        //System.out.println("Prefix: " + binaryString);
+        while (binaryString.length() < 8) {
+            binaryString.insert(0, '0');
+        }
+        //System.out.println("Postfix:" + binaryString);
+        // Assign High Destination Register
+        switch(binaryString.substring(0, 2)) {
+            case "00":
+                registers[0] = 0;
+                break;
+            case "01":
+                registers[0] = 1;
+                break;
+            case "10":
+                registers[0] = 2;
+                break;
+            case "11":
+                registers[0] = 3;
+        }
+
+        // Assign Low Destination Register
+        switch(binaryString.substring(2, 4)){
+            case "00":
+                registers[1] = 0;
+                break;
+            case "01":
+                registers[1] = 1;
+                break;
+            case "10":
+                registers[1] = 2;
+                break;
+            case "11":
+                registers[1] = 3;
+                break;
+        }
+
+        // Assign High Source Register
+        switch(binaryString.substring(4, 6)){
+            case "00":
+                registers[2] = 0;
+                break;
+            case "01":
+                registers[2] = 1;
+                break;
+            case "10":
+                registers[2] = 2;
+                break;
+            case "11":
+                registers[2] = 3;
+                break;
+        }
+
+        // Assign Low Source Register
+        switch(binaryString.substring(6)){
+            case "00":
+                registers[3] = 0;
+                break;
+            case "01":
+                registers[3] = 1;
+                break;
+            case "10":
+                registers[3] = 2;
+                break;
+            case "11":
+                registers[3] = 3;
+                break;
+        }
+
+        return registers;
     }
 
 
